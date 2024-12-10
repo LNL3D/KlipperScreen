@@ -145,6 +145,8 @@ class ZCalibratePanel(ScreenPanel):
         elif method == "delta_manual":
             self._screen._ws.klippy.gcode_script("DELTA_CALIBRATE METHOD=manual")
         elif method == "endstop":
+            self._screen._ws.klippy.gcode_script("G28")
+            self._move_to_position()
             self._screen._ws.klippy.gcode_script("Z_ENDSTOP_CALIBRATE")
 
     def _move_to_position(self):
