@@ -15,7 +15,7 @@ def create_panel(*args):
 
 class ZCalibratePanel(ScreenPanel):
     widgets = {}
-    distances = ['.01', '.05', '.1', '.5', '1', '5']
+    distances = ['.1', '.5', '1', '5']
     distance = distances[-2]
 
     def __init__(self, screen, title):
