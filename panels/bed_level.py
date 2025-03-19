@@ -359,6 +359,14 @@ class BedLevelPanel(ScreenPanel):
                 if value and x == value[0] and y == value[1]:
                     logging.debug(f"X: {x} Y: {y} Adjust: {result[5]} Pos: {key}")
                     self.buttons[key].set_label(result[5])
+                    dir = result[5].split(' ')[0]
+                    dirValue = result[5].split(' ')[1]
+                    logging.debug(f"dir = {dir}, value = {dirValue}")
+                    if int(dirValue.split(':')[0]) == 0 and int(dirValue.split(':')[1]) < 6:
+                        self.buttons[key].set_image(self._gtk.Image('complete'))
+                    else:
+                        self.buttons[key].set_image(self._gtk.Image(dir.lower()))
+                    logging.debug(f"result string split {result[5].split(':')} split 0 = {result[5].split(':')[0]} split 1 = {result[5].split(':')[1]}")
                     break
             self.response_count += 1
             if self.response_count >= len(self.screws) - 1:
@@ -376,8 +384,9 @@ class BedLevelPanel(ScreenPanel):
                 logging.debug(f"X: {x} Y: {y} is the reference")
                 for key, value in self.screw_dict.items():
                     if value and x == value[0] and y == value[1]:
-                        logging.debug(f"X: {x} Y: {y} Pos: {key}")
+                        logging.debug(f"X: {x} Y: {y} Pos: {key}, Value: {value}")
                         self.buttons[key].set_label(_("Reference"))
+                        self.buttons[key].set_image(self._gtk.Image("complete"))
 
     def _get_screws(self, config_section_name):
         screws = []
