@@ -139,16 +139,30 @@ class BedLevelPanel(ScreenPanel):
 
         remaining_screws = self.screws[:]
 
-        fl = find_closest(remaining_screws, (min_x, min_y), max_distance, remove="fl" in screw_positions)
-        bl = find_closest(remaining_screws, (min_x, max_y), max_distance, remove="bl" in screw_positions)
-        br = find_closest(remaining_screws, (max_x, max_y), max_distance, remove="br" in screw_positions)
-        fr = find_closest(remaining_screws, (max_x, min_y), max_distance, remove="fr" in screw_positions)
+        if len(remaining_screws) > 4:
+            fl = find_closest(remaining_screws, (min_x, min_y), max_distance, remove="fl" in screw_positions)
+            lm = find_closest(remaining_screws, (min_x, mid_y), max_distance, remove="lm" in screw_positions)
+            bl = find_closest(remaining_screws, (min_x, max_y), max_distance, remove="bl" in screw_positions)
+            br = find_closest(remaining_screws, (max_x, max_y), max_distance, remove="br" in screw_positions)
+            rm = find_closest(remaining_screws, (max_x, mid_y), max_distance, remove="rm" in screw_positions)
+            fr = find_closest(remaining_screws, (max_x, min_y), max_distance, remove="fr" in screw_positions)
 
-        fm = find_closest(remaining_screws, (mid_x, min_y), max_distance, remove="fm" in screw_positions)
-        bm = find_closest(remaining_screws, (mid_x, max_y), max_distance, remove="bm" in screw_positions)
+            fm = find_closest(remaining_screws, (mid_x, min_y), max_distance, remove="fm" in screw_positions)
+            bm = find_closest(remaining_screws, (mid_x, max_y), max_distance, remove="bm" in screw_positions)
+        else:
+            fl = find_closest(remaining_screws, (min_x, min_y), max_distance, remove="fl" in screw_positions)
+            bl = find_closest(remaining_screws, (min_x, max_y), max_distance, remove="bl" in screw_positions)
+            br = find_closest(remaining_screws, (max_x, max_y), max_distance, remove="br" in screw_positions)
+            fr = find_closest(remaining_screws, (max_x, min_y), max_distance, remove="fr" in screw_positions)
 
-        lm = find_closest(remaining_screws, (min_x, mid_y), max_distance, remove="lm" in screw_positions)
-        rm = find_closest(remaining_screws, (max_x, mid_y), max_distance, remove="rm" in screw_positions)
+            rm = find_closest(remaining_screws, (max_x, mid_y), max_distance, remove="rm" in screw_positions)
+            lm = find_closest(remaining_screws, (min_x, mid_y), max_distance, remove="lm" in screw_positions)
+            fm = find_closest(remaining_screws, (mid_x, min_y), max_distance, remove="fm" in screw_positions)
+            bm = find_closest(remaining_screws, (mid_x, max_y), max_distance, remove="bm" in screw_positions)
+
+
+        
+
 
         center = find_closest(remaining_screws, (mid_x, mid_y), max_distance, remove="center" in screw_positions)
 
@@ -203,6 +217,8 @@ class BedLevelPanel(ScreenPanel):
             return
 
         if rotation == 90:
+
+            logging.debug(f"rot 90")
             # fl lm bl
             # fm    bm
             # fr rm br
@@ -226,6 +242,7 @@ class BedLevelPanel(ScreenPanel):
                 'lm': fm
             }
         elif rotation == 180:
+            logging.debug(f"rot 180")
             # fr fm fl
             # rm    lm
             # br bm bl
@@ -248,6 +265,7 @@ class BedLevelPanel(ScreenPanel):
                 'lm': rm
             }
         elif rotation == 270:
+            logging.debug(f"rot 270")
             # br rm fr
             # bm    fm
             # bl lm fl
@@ -270,6 +288,7 @@ class BedLevelPanel(ScreenPanel):
                 'lm': bm
             }
         else:
+            logging.debug(f"rot none")
             # bl bm br
             # lm    rm
             # fl fm fr
