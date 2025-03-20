@@ -140,17 +140,15 @@ class BedLevelPanel(ScreenPanel):
         remaining_screws = self.screws[:]
 
         fl = find_closest(remaining_screws, (min_x, min_y), max_distance, remove="fl" in screw_positions)
-        lm = find_closest(remaining_screws, (min_x, mid_y), max_distance, remove="lm" in screw_positions)
         bl = find_closest(remaining_screws, (min_x, max_y), max_distance, remove="bl" in screw_positions)
         br = find_closest(remaining_screws, (max_x, max_y), max_distance, remove="br" in screw_positions)
-        rm = find_closest(remaining_screws, (max_x, mid_y), max_distance, remove="rm" in screw_positions)
         fr = find_closest(remaining_screws, (max_x, min_y), max_distance, remove="fr" in screw_positions)
 
         fm = find_closest(remaining_screws, (mid_x, min_y), max_distance, remove="fm" in screw_positions)
         bm = find_closest(remaining_screws, (mid_x, max_y), max_distance, remove="bm" in screw_positions)
 
-        
-        
+        lm = find_closest(remaining_screws, (min_x, mid_y), max_distance, remove="lm" in screw_positions)
+        rm = find_closest(remaining_screws, (max_x, mid_y), max_distance, remove="rm" in screw_positions)
 
         center = find_closest(remaining_screws, (mid_x, mid_y), max_distance, remove="center" in screw_positions)
 
